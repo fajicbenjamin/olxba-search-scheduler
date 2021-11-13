@@ -11,6 +11,7 @@ class Search extends Model
     protected $fillable = [
         'name',
         'search_url',
+        'active',
         'user_id',
     ];
 

@@ -12,7 +12,19 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-white border-b border-gray-200">
-                        You're logged in!
+                        <span class="mr-4 text-lg inline-block" style="line-height: 34px">Saved searches</span>
+                        <BreezeButton class="mt-4" @click="$inertia.visit(route('search.create'))">
+                            Create new
+                        </BreezeButton>
+
+
+                        <ul class="mt-8 list-disc">
+                            <li class="ml-4 cursor-pointer" v-for="search in searches"
+                                :key="search.id"
+                                @click="$inertia.visit(route('search.edit', search.id))">
+                                    {{ search.name }}
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -22,12 +34,25 @@
 
 <script>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
-import { Head } from '@inertiajs/inertia-vue3';
+import {Head} from '@inertiajs/inertia-vue3';
+import BreezeButton from "@/Components/Button";
 
 export default {
     components: {
         BreezeAuthenticatedLayout,
+        BreezeButton,
         Head,
     },
+
+    props: {
+        searches: Array,
+    },
+
+    methods: {
+        createSearch() {
+            this.$inertia.visit(this.route('search.create'));
+        }
+    },
+
 }
 </script>
