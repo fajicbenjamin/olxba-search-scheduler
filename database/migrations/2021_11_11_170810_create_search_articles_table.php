@@ -21,7 +21,7 @@ class CreateSearchArticlesTable extends Migration
             $table->string('name');
             $table->string('image_url');
 
-            $table->foreignId('search_id')->constrained();
+            $table->foreignId('search_id')->constrained()->onDelete('cascade');
         });
     }
 

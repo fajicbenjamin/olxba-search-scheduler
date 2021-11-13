@@ -19,6 +19,7 @@ class CreateSearchesTable extends Migration
 
             $table->string('name');
             $table->string('search_url');
+            $table->boolean('active');
 
             $table->foreignId('user_id')->constrained();
         });

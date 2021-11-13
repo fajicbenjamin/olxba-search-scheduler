@@ -35,7 +35,7 @@ class SearchNotificationMail extends Mailable
     {
         return $this->markdown('mail.search-notification-mail')
             ->with(['newArticles' => $this->newArticles, 'user' => $this->search->user])
-            ->from('benjo@benjo.com', 'Benjo Inc')
+            ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'))
             ->subject('Novi artikli za pretragu ' . $this->search->name);
     }
 }

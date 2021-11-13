@@ -1,19 +1,21 @@
 @component('mail::message')
 # Zdravo {{ $user->name }},
 
-Zakazana pretraga je pronašla nove artikle
+Zakazana pretraga je pronašla nove artikle koji su objavljeni u odnosu na prošli put
 
 
 @foreach($newArticles as $article)
 
 <a href="'https://olx.ba/artikal/{!!$article['id']!!}">
-    <img src="{!!$article['image_url']!!}" alt="{!!$article['title']!!}">
-    <span>{!! $article['title'] !!}</span>
+    <div style="height: 75px;">
+        <img src="{!!$article['image_url']!!}" alt="{!!$article['title']!!}">
+        <span style="display: inline-block; line-height: 75px; vertical-align: inherit">{!! $article['title'] !!}</span>
+    </div>
 </a>
 <br>
 
 @endforeach
 
-Thanks,<br>
+Pozdrav,<br>
 {{ config('app.name') }}
 @endcomponent
