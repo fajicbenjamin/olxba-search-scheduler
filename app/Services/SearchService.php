@@ -58,9 +58,11 @@ class SearchService
 
         $search->searchArticles()->createMany($data);
 
-        // send email for new ones
-        Mail::to($search->user->email)
-            ->send(new SearchNotificationMail($newArticles->toArray(), $search));
+        if (count($data) > 0) {
+            // send email for new ones
+            Mail::to($search->user->email)
+                ->send(new SearchNotificationMail($newArticles->toArray(), $search));
+        }
     }
 
     /**
