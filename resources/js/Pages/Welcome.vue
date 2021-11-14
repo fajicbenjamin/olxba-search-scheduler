@@ -2,7 +2,7 @@
     <Head title="Welcome" />
 
     <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
-        <div v-if="canLogin" class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+        <div v-if="canLogin" class="fixed top-0 right-0 px-6 py-4 sm:block">
             <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-sm text-gray-700 underline">
                 Dashboard
             </Link>
@@ -18,7 +18,7 @@
             </template>
         </div>
 
-        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8 flex flex-col justify-center content-center">
 <!--            <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">-->
 <!--                <svg viewBox="0 0 651 192" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-16 w-auto text-gray-700 sm:h-20">-->
 <!--                    <g clip-path="url(#clip0)" fill="#EF3B2D">-->
