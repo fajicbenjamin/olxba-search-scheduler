@@ -3,8 +3,6 @@
 namespace App\Jobs;
 
 use App\Models\Search;
-use App\Services\SearchService;
-use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -20,14 +18,13 @@ class ScheduledSearch implements ShouldQueue
      * Execute the job.
      *
      * @return void
-     * @throws GuzzleException
      */
-    public function handle(SearchService $searchService)
+    public function handle()
     {
         $searches = Search::with('user')->get();
 
-        $searches->each(function ($search) use ($searchService) {
-            $searchService->handleScheduledSearch($search);
+        $searches->each(function ($search) {
+            dispatch(new ScrapeSearch($search));
         });
     }
 }
