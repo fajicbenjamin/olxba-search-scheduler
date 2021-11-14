@@ -111,16 +111,25 @@ class SearchService
 
         $articles = collect();
 
+        // declare idIndex, since in $ids array there are some empty or wrong values
+        // due to ads and infinite loader on their site. using this index to handle
+        // that scenario and map data all in one loop, instead of filtering those out
+        // and then looping again
+        $idIndex = 0;
+
         for ($i = 0; $i < count($titles); $i++) {
 
             if ($ids[$i] !== '' && $ids[$i] !== 'loader_ucitavanje') {
                 $articles->add([
-                    'id' => (int) substr($ids[$i], strlen('art_')),
+                    'id' => (int) substr($ids[$idIndex], strlen('art_')),
                     'title' => $titles[$i],
                     'image_url' => $images[$i]
                 ]);
+            } else {
+                $idIndex++;
             }
 
+            $idIndex++;
         }
 
         return $articles;
