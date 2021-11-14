@@ -37,5 +37,7 @@ php artisan migrate
 Finally, you will want to start scheduler and queue listener
 ```
 php artisan queue:work
-php artisan schedule:run >> /dev/null 2>&1
+php artisan schedule:run
 ```
+
+Note: those last two commands are mainly for development. If you are deploying the app, you should consider configuring [supervisor](https://laravel.com/docs/8.x/queues#supervisor-configuration) to keep queue work for you, and also adding the [cron job](https://laravel.com/docs/8.x/scheduling#running-the-scheduler) for scheduler
