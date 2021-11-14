@@ -26,6 +26,7 @@ class SearchRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'search_url' => ['required', 'string'],
+            'active' => ['required', 'boolean']
         ];
     }
 }

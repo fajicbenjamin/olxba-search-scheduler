@@ -32,7 +32,6 @@ class SearchController extends Controller
     {
         $attributes = $request->validated();
         $attributes['user_id'] = Auth::id();
-        $attributes['active'] = true; // todo change
 
         $search = new Search();
         $search->fill($attributes)->save();

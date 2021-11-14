@@ -29,6 +29,13 @@
                                 <BreezeInput id="search-url" type="text" class="mt-1 block w-5/12" v-model="form.search_url" required autocomplete="search-url" />
                             </div>
 
+                            <div class="mt-4">
+                                <label class="flex items-center">
+                                    <BreezeCheckbox name="remember" v-model:checked="form.active" />
+                                    <span class="ml-2 text-sm text-gray-600">Enabled</span>
+                                </label>
+                            </div>
+
                             <div class="flex items-center mt-4">
                                 <BreezeButton class="mt-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                                     Save
@@ -68,7 +75,8 @@ export default {
             edit: false,
             form: this.$inertia.form({
                 name: '',
-                search_url: ''
+                search_url: '',
+                active: false
             })
         }
     },
@@ -93,6 +101,7 @@ export default {
             this.edit = true;
             this.form.name = this.search.name;
             this.form.search_url = this.search.search_url;
+            this.form.active = this.search.active === 1;
         }
     }
 }
