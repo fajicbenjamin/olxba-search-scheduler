@@ -1,19 +1,44 @@
+<style>
+    .mail-flex {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .mail-flex span {
+        display: flex;
+        align-items: center;
+    }
+
+    .mail-flex span p {
+        margin: 0 10px;
+    }
+
+    @media (max-width: 768px) {
+        .mail-flex {
+            flex-direction: column;
+        }
+
+        .mail-flex span {
+            align-items: start;
+        }
+    }
+</style>
+
 @component('mail::message')
 # Zdravo {{ $user->name }},
 
-Zakazana pretraga je pronašla nove artikle koji su objavljeni u odnosu na prošli put
-
+Spašena pretraga je pronašla nove artikle.
 
 @foreach($newArticles as $article)
 
-<a href="'https://olx.ba/artikal/{!!$article['id']!!}">
-    <div style="height: 75px;">
-        <img src="{!!$article['image_url']!!}" alt="{!!$article['title']!!}">
-        <span style="display: inline-block; line-height: 75px; vertical-align: bottom">{!! $article['title'] !!}</span>
-    </div>
-</a>
-<br>
+<div class="mail-flex">
+    <img src="{!!$article['image_url']!!}" alt="{!!$article['title']!!}">
+    <span>
 
+[{!! $article['title'] !!}]({{'https://olx.ba/artikal/' . $article['id'] }})
+    </span>
+</div>
+<br>
 @endforeach
 
 Pozdrav,<br>
