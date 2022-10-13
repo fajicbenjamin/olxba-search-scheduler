@@ -9,10 +9,12 @@ you by email when something new is published within your saved search.
 Go to OLX.ba and set up your wanted search with all corresponding filters activated (usually you will 
 save the search in their app as well). Then simply copy search url and save it in this app.
 
-![Screenshot](https://i.ibb.co/wS7CFMK/ss.png)
+<div align="center"><img src="https://i.ibb.co/wS7CFMK/ss.png" /></div>
 
 After that, scheduler is set up to run every 10 minutes and it will do search and compare previous results, 
 and notify you only about new results. Will not spam constantly.
+
+<div align="center"><img src="https://i.ibb.co/wsDVFqG/ssmail.png" width="350"/></div>
 
 ## Installation
 
