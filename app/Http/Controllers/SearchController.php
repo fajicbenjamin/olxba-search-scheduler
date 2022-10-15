@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\SearchRequest;
 use App\Models\Search;
+use App\Models\SearchUser;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -30,11 +31,28 @@ class SearchController extends Controller
      */
     public function store(SearchRequest $request): RedirectResponse
     {
+        $user = Auth::user();
         $attributes = $request->validated();
-        $attributes['user_id'] = Auth::id();
 
-        $search = new Search();
+        // check if user has available free searches on account
+        if ($attributes['active'] && $user->searchUsers()->active()->count() >= $user->limit) {
+            return back()
+                ->withErrors('You have no more free searches. Try disabling some older searches, or ask for new quota');
+        }
+
+        // check if search url exists, so we do only one scrape, even if multiple
+        // users are asking for same search
+        $search = Search::where('search_url', $attributes['search_url'])->first();
+        if (!$search)
+            $search = new Search();
+
         $search->fill($attributes)->save();
+
+        $attributes['user_id'] = $user->id;
+        $attributes['search_id'] = $search->id;
+
+        $searchUser = new SearchUser();
+        $searchUser->fill($attributes)->save();
 
         return redirect(RouteServiceProvider::HOME);
     }
@@ -42,11 +60,12 @@ class SearchController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Search $search
+     * @param SearchUser $search
      * @return \Inertia\Response
      */
-    public function edit(Search $search): \Inertia\Response
+    public function edit(SearchUser $search): \Inertia\Response
     {
+        $search->load('search');
         return Inertia::render('Search/Form', ['search' => $search]);
     }
 
@@ -54,12 +73,20 @@ class SearchController extends Controller
      * Update the specified resource in storage.
      *
      * @param SearchRequest $request
-     * @param Search $search
+     * @param SearchUser $search
      * @return RedirectResponse
      */
-    public function update(SearchRequest $request, Search $search): RedirectResponse
+    public function update(SearchRequest $request, SearchUser $search): RedirectResponse
     {
         $attributes = $request->validated();
+
+        $user = Auth::user();
+        // check if user has available free searches on account
+        if ($attributes['active'] && $user->searchUsers()->active()->count() >= $user->limit) {
+            return back()
+                ->withErrors('You have no more free searches. Try disabling some older searches, or ask for new quota');
+        }
+
         $search->fill($attributes)->save();
 
         return redirect(RouteServiceProvider::HOME);

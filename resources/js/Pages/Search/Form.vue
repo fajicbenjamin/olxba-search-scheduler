@@ -100,7 +100,7 @@ export default {
         if (this.search) {
             this.edit = true;
             this.form.name = this.search.name;
-            this.form.search_url = this.search.search_url;
+            this.form.search_url = this.search.search.search_url;
             this.form.active = this.search.active === 1;
         }
     }

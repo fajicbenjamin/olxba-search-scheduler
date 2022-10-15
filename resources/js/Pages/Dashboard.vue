@@ -19,10 +19,11 @@
 
 
                         <ul class="mt-8 list-disc">
-                            <li class="ml-4 cursor-pointer" v-for="search in searches"
+                            <li class="ml-4 cursor-pointer list-none" v-for="search in searches"
                                 :key="search.id"
                                 @click="$inertia.visit(route('search.edit', search.id))">
-                                    {{ search.name }}
+                                <span class="mr-2" :class="search.active ? 'text-green-300' : 'text-red-300'">•</span>
+                                {{ search.name }}
                             </li>
                         </ul>
                     </div>

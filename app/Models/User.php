@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'limit',
     ];
 
     /**
@@ -46,8 +47,8 @@ class User extends Authenticatable
     /**
      * Get the searches associated with the user.
      */
-    public function searches(): HasMany
+    public function searchUsers(): HasMany
     {
-        return $this->hasMany(Search::class);
+        return $this->hasMany(SearchUser::class);
     }
 }

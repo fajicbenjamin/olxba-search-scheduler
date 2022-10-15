@@ -3,24 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Search extends Model
 {
     protected $fillable = [
-        'name',
         'search_url',
-        'active',
-        'user_id',
     ];
 
     /**
-     * Get the user that owns the search.
+     * Get the users associated with the search.
      */
-    public function user(): BelongsTo
+    public function searchUsers(): HasMany
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(SearchUser::class);
     }
 
     /**
