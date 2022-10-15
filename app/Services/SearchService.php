@@ -62,7 +62,7 @@ class SearchService
             // send email for new ones
             $search->searchUsers->each(function ($searchUser) use ($newArticles, $search) {
                 Mail::to($searchUser->user->email)
-                    ->send(new SearchNotificationMail($newArticles->toArray(), $search, $searchUser->user));
+                    ->send(new SearchNotificationMail($newArticles->toArray(), $searchUser));
             });
         }
     }
