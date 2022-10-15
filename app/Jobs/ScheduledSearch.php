@@ -21,9 +21,10 @@ class ScheduledSearch implements ShouldQueue
      */
     public function handle()
     {
-        $searches = Search::with('user')
-            ->where('active', true)
-            ->get();
+        $searches = Search::with('searchUsers')
+            ->whereHas('searchUsers', function ($query) {
+                $query->active();
+            })->get();
 
         $searches->each(function ($search) {
             dispatch(new ScrapeSearch($search));

@@ -48,20 +48,22 @@ class SearchService
         $searchId = $search->id;
         $data = [];
         $newArticles->each(function ($article) use (&$data, $searchId) {
-            array_push($data, [
+            $data[] = [
                 'article_id' => $article['id'],
                 'name' => $article['title'],
                 'image_url' => $article['image_url'],
                 'search_id' => $searchId
-            ]) ;
+            ];
         });
 
         $search->searchArticles()->createMany($data);
 
         if (count($data) > 0) {
             // send email for new ones
-            Mail::to($search->user->email)
-                ->send(new SearchNotificationMail($newArticles->toArray(), $search));
+            $search->searchUsers->each(function ($searchUser) use ($newArticles, $search) {
+                Mail::to($searchUser->user->email)
+                    ->send(new SearchNotificationMail($newArticles->toArray(), $search, $searchUser->user));
+            });
         }
     }
 

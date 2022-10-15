@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'limit',
     ];
 
     /**
@@ -46,8 +47,8 @@ class User extends Authenticatable
     /**
      * Get the searches associated with the user.
      */
-    public function searches(): HasMany
+    public function searchUsers(): HasMany
     {
-        return $this->hasMany(Search::class);
+        return $this->hasMany(SearchUser::class);
     }
 }

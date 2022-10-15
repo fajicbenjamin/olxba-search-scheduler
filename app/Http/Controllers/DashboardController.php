@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Search;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -17,7 +16,9 @@ class DashboardController extends Controller
      */
     public function index(): Response
     {
-        $searches = Auth::user()->searches;
+        $searches = Auth::user()->searchUsers()
+            ->with('search')
+            ->get();
 
         return Inertia::render('Dashboard', ['searches' => $searches]);
     }
