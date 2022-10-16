@@ -21,12 +21,12 @@
 
                             <div>
                                 <BreezeLabel for="name" value="Name" />
-                                <BreezeInput id="name" type="text" class="mt-1 block w-5/12" v-model="form.name" required autofocus autocomplete="search-name" />
+                                <BreezeInput id="name" type="text" class="mt-1 block w-full md:w-5/12" v-model="form.name" required autofocus autocomplete="search-name" />
                             </div>
 
                             <div class="mt-4">
                                 <BreezeLabel for="search-url" value="Search Url" />
-                                <BreezeInput id="search-url" type="text" class="mt-1 block w-5/12" v-model="form.search_url" required autocomplete="search-url" />
+                                <BreezeInput id="search-url" type="text" class="mt-1 block w-full md:w-5/12" v-model="form.search_url" required autocomplete="search-url" />
                             </div>
 
                             <div class="mt-4">
