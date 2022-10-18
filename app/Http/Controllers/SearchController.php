@@ -67,7 +67,7 @@ class SearchController extends Controller
     {
         // don't allow edit screen for other users' searches
         if ($search->user->id !== Auth::user()->id) {
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect(RouteServiceProvider::HOME);
         }
 
         $search->load('search');
