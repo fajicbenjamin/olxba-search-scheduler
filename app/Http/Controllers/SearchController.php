@@ -61,10 +61,15 @@ class SearchController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param SearchUser $search
-     * @return \Inertia\Response
+     * @return RedirectResponse|\Inertia\Response
      */
-    public function edit(SearchUser $search): \Inertia\Response
+    public function edit(SearchUser $search)
     {
+        // don't allow edit screen for other users' searches
+        if ($search->user->id !== Auth::user()->id) {
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+
         $search->load('search');
         return Inertia::render('Search/Form', ['search' => $search]);
     }
